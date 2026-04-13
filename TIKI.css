@@ -2682,15 +2682,21 @@ footer::before {
 }
 
 /* ===== FIX MOBILE : désactiver le flip au hover, activer au click ===== */
+/* NOUVEAU */
 @media (hover: none) {
-    /* Désactive le flip CSS au survol (inutile sur mobile) */
     .flip-card:hover:not(.details-open) .flip-card-inner {
         transform: none;
     }
-
-    /* Ajoute une classe .flipped pour le JS */
     .flip-card.flipped:not(.details-open) .flip-card-inner {
         transform: rotateY(120deg);
+    }
+    .flip-card.details-open .flip-card-inner {
+        transform: rotateY(240deg) !important;
+    }
+    .flip-card.details-open .face-3 .gallery-container {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition-delay: 0s !important;
     }
 }
 @media (max-width: 768px) {
