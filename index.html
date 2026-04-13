@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio - Aicha NDIAYE</title>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Fichier CSS externe -->
+    <link rel="stylesheet" href="../CSS/TIKI.css">
+</head>
+<body data-theme="light">
+    <!-- Effet éclair -->
+    <div class="lightning-effect" id="lightningEffect"></div>
+
+    <div id="custom-alert" class="custom-alert"></div>
+
+    <!-- Bouton Sombre Éclair -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch">
+            <input type="checkbox" id="themeToggle">
+            <span class="slider">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </span>
+        </label>
+    </div>
+
+    <nav>
+        <div class="logo">✦ Mon Portfolio ✦</div>
+        <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="progressBar"></div>
+</div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" onclick="closeMenu()">Accueil</a></li>
+            <li><a href="#about" onclick="closeMenu()">À propos</a></li>
+            <li><a href="#services" onclick="closeMenu()">Services</a></li>
+            <li><a href="#projects" onclick="closeMenu()">Projets</a></li>
+            <li><a href="#skills" onclick="closeMenu()">Compétences</a></li>
+            <li><a href="#team-project" onclick="closeMenu()">Projet d'équipe</a></li>
+            <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Section Accueil -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h3 > BONJOUR, JE SUIS </h3>
+                <h2 class="logo"><span>Aïcha NDIAYE</span></h2>
+                <div class="profession">Étudiante en Licence 2 Géomatique</div>
+                <p>Géomaticienne passionnée par la synergie entre Cartographie et Développement Web. Je conçois des solutions innovantes alliant la rigueur de l'analyse spatiale à la modernité des interfaces web interactives.</p>
+                
+                <div class="hero-social">
+                    <a href="https://www.linkedin.com/in/aicha-ndiaye-a63067366/" target="_blank" class="social-icon" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/SHASHA2005" target="_blank" class="social-icon" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://x.com/AichaNdiayh" target="_blank" class="social-icon" title="Twitter/X">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                </div>
+                
+                <a href="#contact" class="btn">Engagez-moi</a>
+            </div>
+            <div class="hero-image">
+                <img src="../image/AICHA2.jpeg" alt="Aicha NDIAYE">
+            </div>
+        </section>
+        
+        <!-- Section À propos -->
+        <section id="about" class="hero" style="flex-direction: row-reverse;">
+            <div class="hero-content">
+                <h2>À propos de <span>moi</span></h2>
+                <div class="profession">Géomaticienne</div>
+                <p>Étudiante en Licence 2 Géomatique, motivée et rigoureuse, disposant de compétences en systèmes d'information géographique (SIG), cartographie thématique et analytique, ainsi qu'en analyse de données spatiales. Habituée à travailler sur des projets académiques utilisant des outils comme QGIS, ArcGIS et RStudio. Forte motivation pour les domaines de l'aménagement du territoire, de l'environnement et de l'informatique appliquée.</p>
+                <a href="../HTML/Mon_cv.html" class="btn">Télécharger CV</a>
+            </div>
+            <div class="hero-image">
+                <img src="../image/AICHANDIAYE.jpeg" alt="À propos">
+            </div>
+        </section>
+
+        <!-- Section Services -->
+        <section id="services" class="services">
+            <h2 class="section-title">Mes <span>services</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Développement Web</h3>
+                    <p>Création de sites web modernes et responsifs en utilisant les technologies actuelles du développement web pour offrir des interfaces claires et accessibles.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Création de cartes</h3>
+                    <p>Création de cartes thématiques et topographiques précises à partir de relevés GPS et données SIG</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-map-pin"></i>
+                    <h3>Géolocalisations</h3>
+                    <p>Utilisation de la géolocalisation pour identifier et cartographier précisément des positions sur le terrain</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Analyse de données</h3>
+                    <p>Analyse et traitement de données à l'aide d'outils statistiques et informatiques</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2 class="section-title">Mes <span>projets</span></h2>
+            
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="informatique">Informatique</button>
+                <button class="filter-btn" data-filter="cartographique">Cartographique</button>
+                <button class="filter-btn" data-filter="topographique">Topographique</button>
+            </div>
+           
+
+           
+
+
+      
+            
+            
+            
+            <div class="projects-grid" id="projectsGrid"></div>
+            
+            
+        </section>
+        
+        <!-- Section Compétences -->
+        <section id="skills" class="skills">
+            <h2 class="section-title">Mes <span>compétences</span></h2>
+            
+            <!-- Catégorie Outils -->
+            <div class="skills-category">
+                <h3 class="category-title"><i class="fas fa-tools"></i> Outils</h3>
+                
+                <div class="tools-part">
+                    <h4 class="tools-subtitle"><i class="fas fa-map-marked-alt"></i> Outils cartographiques</h4>
+                    <div class="skills-grid-3col">
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <img src="../image/arcgis.jpeg" alt="ArcGIS" class="skill-logo-img">
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">ArcGIS</span>
+                                <span class="skill-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" data-width="80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <img src="../image/qgis.jpeg" alt="QGIS" class="skill-logo-img">
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">QGIS</span>
+                                <span class="skill-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" data-width="80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <img src="../image/philcarto.jpeg" alt="Philcarto" class="skill-logo-img">
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">Philcarto</span>
+                                <span class="skill-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" data-width="40%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tools-part">
+                    <h4 class="tools-subtitle"><i class="fas fa-laptop-code"></i> Outils informatiques</h4>
+                    <div class="skills-grid-3col">
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <img src="../image/rstudio.jpeg" alt="RStudio" class="skill-logo-img">
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">RStudio</span>
+                                <span class="skill-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" data-width="70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <img src="../image/vscode.jpeg" alt="VSCODE" class="skill-logo-img">
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">VSCODE</span>
+                                <span class="skill-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" data-width="50%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <img src="../image/pycharm.jpeg" alt="pycharm" class="skill-logo-img">
+                            </div>
+                            <div class="skill-info">
+                                <span class="skill-name">Pycharm</span>
+                                <span class="skill-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" data-width="40%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Catégorie Langages -->
+            <div class="skills-category">
+                <h3 class="category-title"><i class="fas fa-code"></i> Langages</h3>
+                <div class="skills-grid-3col">
+                    <div class="skill-item">
+                        <div class="skill-logo">
+                            <img src="../image/r.jpeg" alt="R" class="skill-logo-img">
+                        </div>
+                        <div class="skill-info">
+                            <span class="skill-name">R</span>
+                            <span class="skill-percent">70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-width="70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-logo">
+                            <img src="../image/html.jpeg" alt="HTML/CSS/JS" class="skill-logo-img">
+                        </div>
+                        <div class="skill-info">
+                            <span class="skill-name">HTML / CSS / JS</span>
+                            <span class="skill-percent">50%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-width="50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-logo">
+                            <img src="../image/python.jpeg" alt="Python" class="skill-logo-img">
+                        </div>
+                        <div class="skill-info">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-percent">40%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" data-width="40%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section Projet d'équipe -->
+        <section id="team-project" class="team-project">
+            <h2 class="section-title">Projet <span>d'équipe</span></h2>
+            
+            <div class="project-overview">
+                <h3>Projets académiques collaboratifs</h3>
+                <p>Participation à plusieurs projets académiques réalisés en équipe, notamment une étude sur le trafic routier ainsi que des projets en anglais portant sur des domaines liés à la géomatique, tels que la cartographie et l'arpentage.</p>
+            </div>
+            
+            <div class="project-highlight">
+                <div class="highlight-item">
+                    <i class="fas fa-users"></i>
+                    <h4>Équipes</h4>
+                    <p>2-4 personnes</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-clock"></i>
+                    <h4>Durée</h4>
+                    <p>Projet express</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-tools"></i>
+                    <h4>Outils</h4>
+                    <p>QGIS, Kobotoolbox, Microsoft World, PowerPoint</p>
+                </div>
+            </div>
+
+            <div class="project-achievements">
+                <h3>Réalisations <span>collaboratives</span></h3>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Étude trafic routier</h4>
+                        <p>Analyse des flux de trafic routier dans la ville de Thiès à partir d'une enquête de terrain réalisée par notre équipe.</p>
+                        <div class="project-tags">
+                                <span>voir le projet</span>  
+                            </div>
+                        <div class="project-actions">
+                            
+                            <div class="project-links">
+                                <a href="https://github.com/SHASHA2005/depot_arcgis/blob/main/Rapport_trafic_routier.pdf" class="project-link" target="_blank" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="../projet_html/Rapport_trafic_routier.pdf" class="project-link download-btn" download title="Télécharger le PDF">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Projet en anglais sur l'arpentage</h4>
+                        <p>Principales méthodes et outils d'arpentage, ainsi que leurs applications dans la construction, la cartographie et l'agriculture</p>
+                        <div class="project-tags">
+                                <span>voir le projet</span>  
+                            </div>
+                        <div class="project-actions">
+                            
+                            <div class="project-links">
+                                <a href="https://github.com/SHASHA2005/depot_arcgis/blob/main/Surveying%20Methods%20%20and%20Tools.pptx" class="project-link" target="_blank" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="../projet_html/Surveying Methods and Tools.pptx" class="project-link download-btn" download title="Télécharger le PPTX">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Projet d'ACP</h4>
+                        <p>Étude de l'impact de la proximité des écoles et des axes routiers sur l'attractivité et 
+                            la valorisation des terrains dans les quartiers de Thiès.</p>
+                            <div class="project-tags">
+                                <span>voir le projet</span>  
+                            </div>
+
+                        <div class="project-actions">
+                            
+                            <div class="project-links">
+                                <a href="https://github.com/SHASHA2005/depot_arcgis/blob/main/projet%20analyse4.Rmd" class="project-link" title="Voir le projet">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="../projet analyse4.Rmd" class="project-link download-btn" download title="Télécharger le PPTX">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>Projet en anglais sur la cartographie</h4>
+                        <p>histoire, outils, utilisateurs et importance dans des domaines comme l'urbanisme, 
+                            l'agriculture et la gestion des risques</p>
+                            <div class="project-tags">
+                                <span>voir le projet</span>  
+                            </div>
+                        <div class="project-actions">
+                            
+                            <div class="project-links">
+                                <a href="https://github.com/SHASHA2005/depot_arcgis/blob/main/cartographie%20and%20mapmaking.pptx" class="project-link" target="_blank" title="Voir sur GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="../projet_html/cartographie and mapmaking.pptx" class="project-link download-btn" download title="Télécharger le PPTX">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="contact">
+            <h2 class="section-title">Me <span>contacter</span></h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact & Réseaux</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Thiès, Sénégal</p>
+                    <p><i class="fas fa-phone"></i> +221 77 849 98 24</p>
+                    <p><i class="fas fa-envelope"></i>  ndiaye2005geomatique@gmail.com</p>
+                    <div class="social-links" style="display: flex; gap: 15px; justify-content: flex-start; margin-top: 20px;">
+                        <a href="https://www.linkedin.com/in/aicha-ndiaye-a63067366/" target="_blank" class="social-icon" style="background: var(--btn-gradient);">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/SHASHA2005" target="_blank" class="social-icon" style="background: var(--btn-gradient);">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://x.com/AichaNdiayh" target="_blank" class="social-icon" style="background: var(--btn-gradient);">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Votre nom (Obligatoire)" required> 
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="emailInput" placeholder="Votre email (Obligatoire)" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Sujet">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Votre message (Obligatoire)" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Envoyer le message</button>
+                </form>
+            </div>
+        </section>
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4 class="footer-title">Accès Rapides</h4>
+            <ul class="footer-links">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4 class="footer-title">Expériences en chiffres</h4>
+            <div class="stats-horizontal">
+                <div class="stat-unit">
+                    <span class="stat-digit">9+</span>
+                    <span class="stat-name">Projets</span>
+                </div>
+                <div class="stat-unit">
+                    <span class="stat-digit">3+</span>
+                    <span class="stat-name">Catégories</span>
+                </div>
+                <div class="stat-unit">
+                    <span class="stat-digit">6+</span>
+                    <span class="stat-name">Outils maîtrisés</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <h4 class="footer-title">Scanner</h4>
+            <div class="qr-box">
+                <img src="../image/votre-qrcode.png" alt="QR Code" class="qr-img">
+                <p class="qr-label">Mon portfolio</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>✦ Créé avec ❤️ html/css/js ✦</p> <br>
+        <p>© 2026 Aicha NDIAYE</p> <br>
+        <p class="mention">✨ Licence 2 Géomatique - UFR Sciences de l'ingénieur ✨</p>
+    </div>
+    
+</footer>
+
+    <!-- Fichier JavaScript externe -->
+    <script src="../JS/TIKI.js"></script>
+    <div class="toast-container" id="toastContainer"></div>
+<audio id="toastSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+
+
+
+    
+</body>
+</html>
