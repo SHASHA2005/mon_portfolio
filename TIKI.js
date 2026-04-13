@@ -2,27 +2,27 @@
 const projectPhotos = {
     project1: ['../image/formulaire.jpeg'],
     project2: [
-        '../image/b_ecart type.png', '../image/b_echelle log.png',
-        '../image/b_intervalle egal quantile.png', '../image/b_intervalle egal.png', '../image/b_jenks.png'
+        'b_ecarttype.png', 'b_echellelog.png',
+        'b_intervalleegalquantile.png', 'b_intervalleegal.png', 'b_jenks.png'
     ],
     project3: [
-        '../image/bb_dakar.png', '../image/b_diourbel.png', '../image/b_fatick.png',
-        '../image/b_Louga.png', '../image/b_kaolack.png', '../image/b_kedougou.png',
-        '../image/b_kolda.png', '../image/b_ziguinchor.png', '../image/b_sedhiou.png',
-        '../image/b_matam.png', '../image/b_TAMBACOUNDA.png', '../image/b_thies.png',
+        'bb_dakar.png', 'b_diourbel.png', 'b_fatick.png',
+        'b_Louga.png', 'b_kaolack.png', 'b_kedougou.png',
+        'b_kolda.png', 'b_ziguinchor.png', 'b_sedhiou.png',
+        'b_matam.png', 'b_TAMBACOUNDA.png', 'b_thies.png',
         '../image/b_saint_louis.png', '../image/b_kaffrine.png'
     ],
-    project4: ['../image/projet_arcgis_avant_num.jpg', '../image/projet_arcgis.jpg'],
-    project5: ['../image/aut 1.png', '../image/aut 2.png', '../image/aut 3.png', '../image/aut 4.png'],
-    project6: ['../image/auto 1.jpeg', '../image/auto 2.jpeg'],
+    project4: ['projet_arcgis_avant_num.jpg', 'projet_arcgis.jpg'],
+    project5: ['aut 1.png', 'aut 2.png', '../image/aut 3.png', 'aut 4.png'],
+    project6: ['auto 1.jpeg', 'auto 2.jpeg'],
     project7: [
-        '../image/r1.jpeg', '../image/R2.jpeg', '../image/R3.jpeg', '../image/R4.jpeg',
-        '../image/R5.jpeg', '../image/R6.jpeg', '../image/R7.jpeg', '../image/R8.jpeg'
+        'r1.jpeg', 'R2.jpeg', 'R3.jpeg', 'R4.jpeg',
+        'R5.jpeg', 'R6.jpeg', 'R7.jpeg', 'R8.jpeg'
     ],
     project8: ['../image/CV.jpeg'],
     project9: [
-        '../image/pix4_1.jpeg', '../image/pix4_2.jpeg', '../image/pix4_3.jpeg',
-        '../image/pix4_4.jpeg', '../image/pix4_5.jpeg', '../image/pix4_6.jpeg', '../image/pix4_resultat.jpeg'
+        'pix4_1.jpeg', 'pix4_2.jpeg', 'pix4_3.jpeg',
+        'pix4_4.jpeg', 'pix4_5.jpeg', 'pix4_6.jpeg', 'pix4_resultat.jpeg'
     ]
 };
 
