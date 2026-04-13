@@ -1,0 +1,431 @@
+---
+title: "Projet Analyse 4"
+author: "Aicha NDIAYE L2 GMT"
+date: "2026-01-21"
+output: html_document
+---
+
+```{r}
+#Librairies
+library(readr)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(skimr)
+library(FactoMineR)
+library(factoextra)
+library(corrplot)
+library(tibble)
+```
+
+A)  Importation & prise en main
+
+```{r}
+#1. Importer le fichier Excel (feuille donnees) avec file.choose().
+df <- read_csv(file.choose())
+df <- df %>% column_to_rownames("ID_parcelle") # pour mettre station_ID en ID
+View(df)
+#2. Afficher dim(df), glimpse(df), head(df). 
+dim(df)#affiche les dimensions (nbre de lignes et de colonnes)
+glimpse(df)#affiche dim + variables et leurs valeurs (bases)
+head(df)#affiche les 6 premieres lignes de la bases
+#3. Vérifier l’absence de valeurs manquantes (sum(is.na(df)) + colSums(is.na(df))).
+sum(is.na(df))# nbre de valeurs manquantes dans la base
+colSums(is.na(df)) #nbre de valeurs manquantes dans chaque variable 
+#4. Combien y a-t-il de quartiers différents ? de zones urbaines ?
+length(unique(df$Quartier))#nbre de quartier
+length(unique(df$Zone_urbaine))#nbre de zones urbaines
+
+
+
+
+
+
+
+
+```
+
+B)  Identification des variables
+
+```{r}
+#5. Lister les variables quantitatives et qualitatives.
+vars_quantitatives = names(df)[sapply(df, is.numeric)]
+vars_qualitatives=names(df)[sapply(df,is.character)]
+
+
+#6. Proposer une liste de variables actives pour l’ACP (10 variables)  
+var_ACP=c("Surface_m2",
+          "Prix_total_FCFA",
+          "Distance_marche_km",
+          "Distance_ecole_km",
+          "Distance_sante_km",
+          "Couverture_electricite_%",
+          "Couverture_eau_%" , 
+          "Risque_inondation_0_100",
+          "Prix_m2_FCFA",
+          "Couverture_assainissement_%")
+
+```
+
+C)  Analyse descriptive (EDA)
+
+```{r}
+#7. Calculer min/max/moyenne/écart-type pour : Prix_m2_FCFA, Surface_m2, Distance_centre_km, Risque_litige_0_100, Risque_inondation_0_100.
+
+
+df %>%
+  summarise(
+    
+    #Prix_m2_FCFA
+    min_prixm2 = min(df$Prix_m2_FCFA, na.rm = TRUE),
+    max_prixm2 = max(df$Prix_m2_FCFA, na.rm = TRUE),
+    moyenne_prixm2 = mean(df$Prix_m2_FCFA, na.rm = TRUE),
+    ecart_type_prixm2 = sd(df$Prix_m2_FCFA, na.rm = TRUE),
+    
+    #Surface_m2,
+    min_surfacem2 = min(df$Surface_m2, na.rm = TRUE),
+    max_surfacem2 = max(df$Surface_m2, na.rm = TRUE),
+    moyenne_surfacem2 = mean(df$Surface_m2, na.rm = TRUE),
+    ecart_type_surfacem2 = sd(df$Surface_m2, na.rm = TRUE),
+    
+    #Distance_centre_km
+    min_dist_centre = min(df$Distance_centre_km, na.rm = TRUE),
+    max_dist_centre = max(df$Distance_centre_km, na.rm = TRUE),
+    moyenne_dist_centre = mean(df$Distance_centre_km, na.rm = TRUE),
+   ecart_type_dist_centre = sd(df$Distance_centre_km, na.rm = TRUE),
+    
+    #Risque_litige_0_100
+    min_Risque_litige = min(df$Risque_litige_0_100, na.rm = TRUE),
+    max_Risque_litige= max(df$Risque_litige_0_100, na.rm = TRUE),
+   moyenne_Risque_litige = mean(df$Risque_litige_0_100, na.rm = TRUE),
+    ecart_type_Risque_litige = sd(df$Risque_litige_0_100, na.rm = TRUE),
+    
+    #Risque_inondation_0_100
+    min_Risque_inondation = min(df$ Risque_inondation_0_100, na.rm = TRUE),
+    max_Risque_inondation= max(df$Risque_inondation_0_100, na.rm = TRUE),
+    moyenne_Risque_inondation = mean(df$Risque_inondation_0_100, na.rm = TRUE),
+    ecart_type_Risque_inondation= sd(df$Risque_inondation_0_100, na.rm = TRUE)
+  )
+```
+
+```{r}
+#8. Faire
+#  2 histogrammes (ex : Prix_m2_FCFA, Surface_m2) 
+
+#Prix_m2_FCFA
+ggplot(df, aes(Prix_m2_FCFA)) +
+  geom_histogram(bins = 30, fill = "yellow") +
+  theme_minimal()
+ 
+#Surface_m2
+ggplot(df, aes(Surface_m2)) +
+  geom_histogram(bins = 30, fill = "red") +
+  theme_minimal()
+
+
+
+# 2 boxplots (ex : Prix_m2_FCFA selon Zone_urbaine, Risque_litige_0_100 selon Titre_foncier) 
+
+#Prix_m2_FCFA selon Zone_urbaine
+ggplot(df, aes(x = Zone_urbaine , y = Prix_m2_FCFA, fill = Zone_urbaine )) +
+  geom_boxplot() +
+  labs(title = "Prix au m² selon la Zone_urbaine ",
+       x = "Zone_urbaine ", y = "Prix au m² (FCFA)") +
+  theme_minimal()
+#commentaire
+#Le prix du metre carre est plus élevé en centre urbain,puis en zone périurbain et enfin plus bas en milieu  rural  et périférique
+
+#Risque_litige_0_100 selon Titre_foncier
+ggplot(df, aes(x = Titre_foncier , y = Risque_litige_0_100, fill = Titre_foncier )) +
+  geom_boxplot() +
+  labs(title = "Risque_litige_0_100selon le Titre_foncier ",
+       x = "Titre_foncier", y = "Risque_litige_0_100") +
+  theme_minimal()
+#commentaire
+#le risque litige est moins eleve quand on a un titre foncier
+
+
+# 1 graphique en barres en proportion (ex : Statut_regularisation) 
+ggplot(df, aes(Statut_regularisation)) +
+  geom_bar(aes(y = after_stat(prop), group = 1), fill = "skyblue") +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal()
+#commentaire
+#on constate que les terrains régularisés sont plus nombreux, suivis des terrains non régularisés,puis de ceux en cours de rgularisation 
+```
+
+D)  Corrélations (diagnostic redondance)
+
+```{r}
+#9. Construire la matrice de corrélation des variables quantitatives actives. 
+
+var_ACP = df[ ,var_ACP] #extraire de df les variables quantitatives choisies pour réaliser l’ACP.
+matrice_correlation <- cor(var_ACP, use = "complete.obs")
+
+
+
+
+#10. Afficher un corrplot (type="upper", order="hclust").
+
+corrplot(matrice_correlation, method = "color", type = "upper", order = "hclust",
+         tl.col = "black", tl.srt = 45, 
+         addCoef.col = "black", # Couleur des coefficients
+         cl.pos = "n", # Position de la légende de couleur
+         cl.cex = 1.2, # Taille de la légende de couleur
+         addCoefasPercent = TRUE, # Afficher les coefficients en pourcentage
+         number.cex = 0.8) 
+# plus la couleur est foncé + la corrélation est forte (bleu pour corrélation positive rouge pour ceux négative) et donc + elle est clair + elle est faible
+
+
+
+
+```
+
+
+11. Citer et interpréter 3 relations fortes :
+
+     une corrélation positive attendue 
+        Distance_gare_km et Distance_marche_km (88)
+
+     une corrélation négative attendue 
+        Distance_gare_km et Prix_m2_FCFA (-70)
+
+     une redondance à traiter() # mesurent presque le même phénomène
+        Prix_total_FCFA et Prix_m2_FCFA (62)
+
+
+
+
+
+
+
+E)  Réalisation de l’ACP
+
+```{r}
+#12. Réaliser l’ACP avec centrage-réduction (scale.unit=TRUE) sur les variables actives. 
+
+
+# centrage-réduction
+donnees_centrées_reduites <- scale(var_ACP,center = TRUE,scale=TRUE)
+
+#Réalisation de l'ACP
+# Installer les packages si nécessaire
+#if (!require("FactoMineR")) install.packages("FactoMineR")
+#if (!require("devtools")) install.packages("devtools")
+library("devtools")
+#install_github("kassambara/factoextra")
+
+# Charger les packages
+library(FactoMineR)
+library("factoextra")
+# Réaliser l'ACP
+resultat_acp <- PCA(donnees_centrées_reduites, graph = FALSE)
+
+#13. Afficher les valeurs propres + scree plot
+
+#valeurs propres
+valeurspropres <- resultat_acp$eig
+
+#scree plot
+barplot(valeurspropres[, 2], names.arg=1:nrow(valeurspropres), 
+       main = "Pourcentage de la variance expliquée par chaque composante",
+       xlab = "Composantes principales",
+       ylab = "Pourcentage de variance expliquée",
+       col ="steelblue")
+# Add connected line segments to the plot
+lines(x = 1:nrow(valeurspropres), valeurspropres[, 2], 
+      type="b", pch=19, col = "red")
+
+```
+
+
+
+14. Choisir le nombre d’axes à conserver (coude + variance cumulée) et justifier.
+
+on va choisir 2 axes à conserver 
+   
+Nous avons choisi de conserver 2 axes, car le coude du scree plot apparaît après la deuxième composante, ce qui signifie que les axes suivants apportent peu d’information . De plus, la variance cumulée dépasse 65 % à la deuxième composante, ce qui permet de garder l’essentiel de l’information.
+     2 composantes avant le coude
+    un cumul qui dépase 65% a la 2eme composante
+
+
+
+
+
+F)  Interprétation des variables (axes)
+
+```{r}
+#15. Tracer le cercle des corrélations coloré par cos² puis par contribution. 
+   #Par cos²
+fviz_pca_var(resultat_acp, 
+             col.var = "cos2", # Utiliser la qualité de la représentation 
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), # Palette de couleurs
+             repel = TRUE, # Éviter le chevauchement des étiquettes
+             title = "Cercle de Corrélation des Variables")
+#par contrib
+fviz_pca_var(resultat_acp, 
+             col.var = "contrib", # Utiliser la contribution
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), # Palette de couleurs
+             repel = TRUE, # Éviter le chevauchement des étiquettes
+             title = "Cercle de Corrélation des Variables")
+
+```
+
+16. Donner un titre/interprétation à Dim1 **Dim1 ≈ prix-accessibilité** oppose surtout
+
+-   en haut : un bloc **accessibilité** avec **`Distance_marche_km,`** , **\`Distance_sante_km**et **Distance_ecole_km** (fortes contributions), parcelles dont l'acessibilité aux infrastructures essentiels est faible et les prix moins élevé
+-   en bas : un bloc **prix** avec **Prix_m2_FCFA**et **Prix_total_FCFA**(fortes contributions) parcelles plutôt chéres
+
+17. Donner un titre/interprétation à Dim2 **Dim2 ≈ couverture des services de bases** composé de **couverture_eau** ,**couverture_electricité** et **couverture_assainissement**(forte contribution) parcelles qui ont un accés à l'eau potable , un éclairage des logements et une bonne qualité de l’environnement .
+
+```{r}
+#18. Lister le Top 8 des contributions sur Dim1 et Dim2  et commenter. 
+
+#Dim1
+fviz_contrib(resultat_acp, choice = "var", axes = 1, top = 8)
+#Les variables qui contribuent le plus à la construction de Dim1 sont : 
+#Prix_m2_FCFA,
+#Distance_marche_km,
+#Prix_total_FCFA,
+#Distance_sante_km,
+#Distance_ecole_km et 
+#Couverture_electricite_% 
+
+
+
+#Dim2
+fviz_contrib(resultat_acp, choice = "var", axes = 2, top = 8)
+#Les variables qui contribuent le plus à la construction de Dim2 sont :
+                                                                        #Couverture_eau_%`,
+                                                                        #Couverture_electricite_%
+                                                                        #Couverture_assainissement_%
+                                                                        #Distance_ecole_km
+                                                                        #Distance_sante_km
+
+
+
+
+
+```
+
+G)  Interprétation des individus (parcelles)
+
+```{r}
+#19. Tracer le nuage des individus coloré par cos² puis par contribution.
+
+
+#Par cos2
+fviz_pca_ind(resultat_acp,  col.ind="cos2") +
+scale_color_gradient2(low="blue", mid="green", 
+                      high="red", midpoint=0.50)+
+  theme_minimal()
+
+#par la contribution
+fviz_pca_ind(resultat_acp,  col.ind="contrib") +
+scale_color_gradient2(low="blue", mid="green", 
+                      high="red", midpoint=0.50)+
+  theme_minimal()
+
+```
+
+```{r}
+#20. Identifier 3 parcelles atypiques (outliers) : donner leur ID.
+
+#Identification
+# Extraire les résultats des individus
+ind <- get_pca_ind(resultat_acp)
+# Trier par distance décroissante
+outliers_index <- head(order(ind$dist, decreasing = TRUE), 3)
+
+# Afficher les ID des 3 parcelles atypiques
+rownames(ind$coord)[outliers_index]
+
+```
+
+
+
+
+```{r}
+#21. Réaliser un biplot filtré (par ex. cos² > 0.5) et commenter ce qu’on lit
+
+#Biplot
+
+# Filtrer les individus avec cos² > 50%
+ind_cos2 <- apply(resultat_acp$ind$cos2, 1, max) > 0.5
+# Filtrer les variables avec cos² > 50%
+var_cos2 <- apply(resultat_acp$var$cos2, 1, max) > 0.5
+# Créer un graphique combiné des individus et des variables( le biplot)
+fviz_pca_biplot(resultat_acp,
+                select.ind = list(cos2 = 0.5), # Sélectionner les individus avec cos² > 50%
+                select.var = list(cos2 = 0.5), # Sélectionner les variables avec cos² > 50%
+                repel = TRUE, # Éviter le chevauchement des étiquettes
+                title = "Biplot des Individus et des Variables (cos² > 50%)",
+                col.ind = "blue", # Couleur des individus
+                col.var = "red" # Couleur des variables
+                )
+
+#Commentaires
+#Les parcelles situées dans la direction des variables :
+#Prix_total_FCFA
+#Prix_m2_FCFA
+#Couverture eau %
+#couverture électricité %
+#Couverture_assainissement_%
+#sont caractérisées par :des prix élevés,une bonne qualité de l’environnement,un accés à l'eau potable  un éclairage des logements ,possibilité d'utiliser des appareils électroménagers et donc Un niveau de développement urbain élevé
+#Ces parcelles peuvent être considérées comme plus attractives et plus valorisées.
+
+#Les parcelles proches des variables :
+#Distance_marche_km
+#Distance_ecole_km
+#Distance_sante_km
+   #présentent :
+            #une plus grande distance aux services essentiels(services de),
+            #des prix moins élevés.
+#Elles correspondent à des zones plus périphériques ou moins développées.
+```
+
+
+
+
+```{r}
+#22. Ajouter une variable qualititative de votre choix dans l’ACP et commenter.
+
+# Ajouter la variable qualitative
+var_ACP$Zone_urbaine <- df$Zone_urbaine
+
+# ACP avec Zone_urbaine en variable supplémentaire
+resultat_acp <- PCA(var_ACP, 
+                     scale.unit = TRUE,
+                     quali.sup = 11,  # colonne 11 = Zone_urbaine
+                     graph = FALSE)
+
+# Création du graphique
+fviz_pca_ind(resultat_acp,
+             habillage = "Zone_urbaine",
+             addEllipses = TRUE,
+             title = "ACP avec Zone_urbaine (variable qualitative)")
+fviz_pca_var(resultat_acp)
+
+
+```
+COMMENTAIREs
+La variable qualitative « Zone_urbaine » a été ajoutée comme variable illustrative dans l’ACP. Elle ne participe pas à la construction des axes mais permet d’interpréter la distribution des parcelles. On observe que les parcelles situées en zone urbaine se concentrent du côté des prix élevés et des fortes couvertures en eau, électricité et assainissement, tandis que les zones rurales et périphériques sont associées à des prix plus faibles et une accessibilité réduite aux services essentiels. Cette variable enrichit l’interprétation  des résultats.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
