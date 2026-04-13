@@ -202,11 +202,16 @@ window.openDetails = function (projectId) {
     createThumbnails(projectId);
 };
 
-window.closeDetails = function (projectId) {
+// NOUVEAU
+window.openDetails = function (projectId) {
     const card = document.getElementById(projectId);
     if (!card) return;
-    card.classList.remove('details-open');
-    setDots(projectId, 0);
+    card.classList.remove('flipped');
+    setTimeout(() => {
+        card.classList.add('details-open');
+        setDots(projectId, 2);
+        createThumbnails(projectId);
+    }, 50);
 };
 
 function setDots(projectId, activeIndex) {
