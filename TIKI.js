@@ -13,8 +13,8 @@ const projectPhotos = {
         'b_saint_louis.png', 'b_kaffrine.png'
     ],
     project4: ['projet_arcgis_avant_num.jpg', 'projet_arcgis.jpg'],
-    project5: ['aut 1.png', 'aut 2.png', 'aut 3.png', 'aut 4.png'],
-    project6: ['auto 1.jpeg', 'auto 2.jpeg'],
+    project5: ['Aut 1.png', 'Aut 2.png', 'Aut 3.png', 'Aut 4.png'],
+    project6: ['Auto 1.jpeg', 'Auto 2.jpeg'],
     project7: [
         'r1.jpeg', 'R2.jpeg', 'R3.jpeg', 'R4.jpeg',
         'R5.jpeg', 'R6.jpeg', 'R7.jpeg', 'R8.jpeg'
